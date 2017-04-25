@@ -1,7 +1,7 @@
 # Technical Interview Homework: GitHub Dashboard
 
 ## App install and review notes from Daniel
-To meet the below requirements for this assignment, I chose to build a basic web application using the ASP.NET MVC framework in Visual Studio 2017. While this is, admittedly, my first time using any of these technologies and tools, I wanted to use this project to gain some experience and knowledge using a MVC structure, as well as familiarize myself with Visual Studio. Even though this is a simplistic application, I believe starting with ASP.NET MVC would ease any future enhancements of the app.
+To meet the below requirements for this assignment, I chose to build a basic web application using the ASP.NET MVC framework in Visual Studio 2017. While this is, admittedly, my first time using any of these technologies and tools, I wanted to use this project to gain some experience and knowledge using a MVC structure, as well as familiarize myself with Visual Studio. Even though this is a simplistic application, I believe starting with ASP.NET MVC would ease any future enhancements of the app. Being a web app, any platform with a modern browser should be able to use and interact with it, and responsive design tools (ie. Bootstrap) would make it easy to render perfectly on most screen sizes.
 
 ### Retrieving and installing the app
 The application files have been pushed to this forked repo, and can be cloned into a local copy of Visual Studio. Having done that, taking the usual steps of building (Ctrl-Shift-B) and then running the app (F5) will open the app home page on the default browser.
@@ -9,6 +9,9 @@ The application files have been pushed to this forked repo, and can be cloned in
 ### Accessing the app on Microsoft Azure
 The application has been deployed to the Microsoft Azure cloud and is accessible at the following URL: 
 <p align="center">http://danielsgithubdashboard.azurewebsites.net/</p>
+
+### Other notes
+By using the dashboard app as an unauthenticated Github user, Github may start denying API requests if the Events list is refreshed too often (about 60 times in a short amount of time). If this limit is reached, any further action within the app requiring a call to Github will result in an error message.
 
 ## Purpose
 The purpose of this exercise is to assess the candidate’s ability to build cross platform software clients that satisfy stated requirements. The completed assignment should not only satisfy the requirements outlined below, but also give the candidate an opportunity to show-off their skills.
