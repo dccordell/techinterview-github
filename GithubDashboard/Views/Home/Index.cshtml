@@ -1,11 +1,28 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<GithubDashboard.Models.Event>
+
+@{
+    ViewBag.Title = "Github Dashboard - Home Page";
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>GitHub Events</h1>
+    <h3>(displaying 30 most recent events)</h3>
+    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+    {
+        <p>
+            <input type="submit" value="Refresh" />
+        </p>
+    }
+    
+    @foreach (var item in Model)
+    {
+        <hr />
+        <h4>Event</h4>
+        <p>User: @item.actor.display_login</p>
+        <p>Type: @item.type</p>
+        <p>Repository: @item.repo.name</p>
+        <p>@Html.ActionLink("More Details", "EventDetails/" + @item.actor.display_login + "/" + @item.id)</p>
+    }
 </div>
 
 <div class="row">
