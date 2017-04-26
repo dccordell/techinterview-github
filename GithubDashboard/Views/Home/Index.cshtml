@@ -20,18 +20,17 @@
         using (Html.BeginForm("Index", "Home", FormMethod.Get))
         {
             <p>
-                <input type="submit" value="Refresh" />
+                <input type="submit" value="Update" />
             </p>
         }
 
         foreach (var item in Model)
         {
             <hr />
-            
-            <p style="border-width:1px; border-style:dashed">
+            <div onclick="location.href='@Url.Action("EventDetails/" + item.actor.display_login + "/" + item.id, "Home")';" style="cursor: pointer; border-width: 1px; border-style: solid; padding: 5px" onMouseOver="this.style.backgroundColor='#DDDDDD'" onMouseOut="this.style.backgroundColor='#EEEEEE'">
                 <img alt="&#64;@item.actor.login" src="@(item.actor.avatar_url + "&amp;s=40")" width="20" height="20">
                 User: <strong>@item.actor.display_login</strong> issued a <strong>@item.type</strong> at <strong>@item.repo.name</strong>
-            <br />@Html.ActionLink("More Details", "EventDetails/" + @item.actor.display_login + "/" + @item.id)</p>
+            </div>
         }
     }
 </div>
