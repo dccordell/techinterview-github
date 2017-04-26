@@ -11,8 +11,9 @@ The application has been deployed to the Microsoft Azure cloud and is accessible
 <p align="center">http://danielsgithubdashboard.azurewebsites.net/</p>
 
 ### Other notes
-By using the dashboard app as an unauthenticated Github user, Github may start denying API requests if the Events list is refreshed too often (about 60 times in a short amount of time). If this limit is reached, any further action within the app requiring a call to Github will result in an error message. To help keep track of the number of hits remaining, I've added a counter in the top left of every page.
+By using the dashboard app as an unauthenticated Github user, Github may start denying API requests if the Events list is refreshed too often (about 60 times in an hour). If this limit is reached, any further action within the app requiring a call to Github will result in an error message. To help keep track of the number of hits remaining, I've added a counter in the top left of every page.
 <p align="center">[end daniel's notes]</p>
+
 ## Purpose
 The purpose of this exercise is to assess the candidate’s ability to build cross platform software clients that satisfy stated requirements. The completed assignment should not only satisfy the requirements outlined below, but also give the candidate an opportunity to show-off their skills.
 

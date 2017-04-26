@@ -13,6 +13,14 @@
     {
         <p class="text-danger">ERROR: @ViewBag.EventNotFoundError</p>
     }
+    else if (!String.IsNullOrEmpty(ViewBag.HitLimitError))
+    {
+        <p class="text-danger">ERROR: @ViewBag.HitLimitError</p>
+    }
+    else if (!String.IsNullOrEmpty(ViewBag.Error))
+    {
+        <p class="text-danger">ERROR: @ViewBag.Error</p>
+    }
     else
     {
         <h3>General</h3>
