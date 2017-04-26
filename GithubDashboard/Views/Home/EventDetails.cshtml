@@ -36,18 +36,16 @@
             <dt>Created at:</dt>
             <dd>@Model.created_at</dd>
         </dl>
-    }
+        <hr />
 
-    <hr />
+        <dl class="dl-horizontal">
+            <dt>Repo:</dt>
+            <dd><a href="http://github.com/@Model.repo.name">@Model.repo.name</a></dd>
+        </dl>
 
-    <dl class="dl-horizontal">
-        <dt>Repo:</dt>
-        <dd><a href="http://github.com/@Model.repo.name">@Model.repo.name</a></dd>
-    </dl>
+        <hr />
 
-    <hr />
-
-        @if (Model.type == "ForkEvent")
+        if (Model.type == "ForkEvent")
         {
             <h3>Fork Info</h3>
             <dl class="dl-horizontal">
@@ -63,7 +61,8 @@
                 <dt>Fork has issues:</dt>
                 <dd>@Model.payload.forkee.has_issues (@Model.payload.forkee.open_issues_count)</dd>
             </dl>
-        } else if (Model.type == "PushEvent")
+        }
+        else if (Model.type == "PushEvent")
         {
             <h3>Push Details</h3>
             <dl class="dl-horizontal">
@@ -137,4 +136,72 @@
                 
             </dl>
         }
+        else if (Model.type == "IssueCommentEvent")
+        {
+            <h3>Issue Comment Info</h3>
+            <dl class="dl-horizontal">
+                <dt>Issue ID:</dt>
+                <dd><a href=@Model.payload.issue.html_url>@Model.payload.issue.id</a></dd>
+
+                <dt>Issue title:</dt>
+                <dd>@Model.payload.issue.title</dd>
+
+                <dt>Issued added by:</dt>
+                <dd>
+                    <a href="http://github.com/@Model.payload.issue.user.html_url">
+                        @Model.payload.issue.user.login
+                        <img alt="&#64;@Model.payload.issue.user.login" src="@(Model.payload.issue.user.avatar_url + "&amp;s=40")" width="20" height="20">
+                    </a>
+                </dd>
+
+                <dt>Issue state:</dt>
+                <dd>@Model.payload.issue.state</dd>
+
+                <dt>Issue text:</dt>
+                <dd>@Model.payload.issue.body</dd>
+                
+                <dt></dt><dd></dd>
+
+                <dt>Comment ID:</dt>
+                <dd>
+                    <a href="http://github.com/@Model.payload.comment.user.html_url">
+                        @Model.payload.comment.user.login
+                        <img alt="&#64;@Model.payload.comment.user.login" src="@(Model.payload.comment.user.avatar_url + "&amp;s=40")" width="20" height="20">
+                    </a>
+                </dd>
+
+                <dt>Created at:</dt>
+                <dd>@Model.payload.comment.created_at</dd>
+
+                <dt>Comment text:</dt>
+                <dd>@Model.payload.comment.body</dd>
+
+            </dl>
+        }
+        else if (Model.type == "IssuesEvent")
+        {
+            <h3>Issues Info</h3>
+            <dl class="dl-horizontal">
+                <dt>Action:</dt>
+                <dd>@Model.payload.action</dd>
+
+                <dt>Issue ID:</dt>
+                <dd><a href=@Model.payload.issue.html_url>@Model.payload.issue.id</a></dd>
+
+                <dt>Issue title:</dt>
+                <dd>@Model.payload.issue.title</dd>
+
+                <dt>Created by:</dt>
+                <dd>
+                    <a href="http://github.com/@Model.payload.issue.user.html_url">
+                        @Model.payload.issue.user.login
+                        <img alt="&#64;@Model.payload.issue.user.login" src="@(Model.payload.issue.user.avatar_url + "&amp;s=40")" width="20" height="20">
+                    </a>
+                </dd>
+
+                <dt>Issue text:</dt>
+                <dd>@Model.payload.issue.body</dd>
+            </dl>
+        }
+    }
 </div>
