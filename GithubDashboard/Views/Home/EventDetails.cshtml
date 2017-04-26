@@ -203,5 +203,47 @@
                 <dd>@Model.payload.issue.body</dd>
             </dl>
         }
+        else if (Model.type == "DeleteEvent")
+        {
+            <h3>Delete Info</h3>
+            <dl class="dl-horizontal">
+                <dt>Ref:</dt>
+                <dd>@Model.payload._ref</dd>
+
+                <dt>Ref type:</dt>
+                <dd>@Model.payload.ref_type</dd>
+
+                <dt>Pusher type:</dt>
+                <dd>@Model.payload.pusher_type</dd>
+            </dl>
+        }
+        else if (Model.type == "CreateEvent")
+        {
+            <h3>Create Info</h3>
+            <dl class="dl-horizontal">
+                <dt>Ref:</dt>
+                <dd>@Model.payload._ref</dd>
+
+                <dt>Ref type:</dt>
+                <dd>@Model.payload.ref_type</dd>
+
+                <dt>Pusher type:</dt>
+                <dd>@Model.payload.pusher_type</dd>
+
+                <dt>Master branch:</dt>
+                <dd>@Model.payload.master_branch</dd>
+
+                <dt>Description:</dt>
+                <dd>@Model.payload.description</dd>
+            </dl>
+        }
+        else if (Model.type == "WatchEvent")
+        {
+            <h3>Watch Info</h3>
+            <dl class="dl-horizontal">
+                <dt>Action:</dt>
+                <dd>@Model.payload.action</dd>
+            </dl>
+        }
     }
 </div>
