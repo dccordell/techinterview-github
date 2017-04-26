@@ -12,7 +12,7 @@
     }
     else
     {
-        <h3>(displaying 30 most recent events)</h3>
+        <h3>(displaying 30 most recent public events)</h3>
         using (Html.BeginForm("Index", "Home", FormMethod.Get))
         {
             <p>
@@ -23,11 +23,11 @@
         foreach (var item in Model)
         {
             <hr />
-            <h4>Event</h4>
-            <p>User: @item.actor.display_login</p>
-            <p>Type: @item.type</p>
-            <p>Repository: @item.repo.name</p>
-            <p>@Html.ActionLink("More Details", "EventDetails/" + @item.actor.display_login + "/" + @item.id)</p>
+            
+            <p style="border-width:1px; border-style:dashed">
+                <img alt="&#64;@item.actor.login" src="@(item.actor.avatar_url + "&amp;s=40")" width="20" height="20">
+                User: <strong>@item.actor.display_login</strong> issued a <strong>@item.type</strong> at <strong>@item.repo.name</strong>
+            <br />@Html.ActionLink("More Details", "EventDetails/" + @item.actor.display_login + "/" + @item.id)</p>
         }
     }
 </div>
