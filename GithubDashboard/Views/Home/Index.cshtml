@@ -6,22 +6,29 @@
 
 <div class="jumbotron">
     <h1>GitHub Events</h1>
-    <h3>(displaying 30 most recent events)</h3>
-    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+    @if (!String.IsNullOrEmpty(ViewBag.HitLimitError))
     {
-        <p>
-            <input type="submit" value="Refresh" />
-        </p>
+        <p class="text-danger">ERROR: @ViewBag.HitLimitError</p>
     }
-    
-    @foreach (var item in Model)
+    else
     {
-        <hr />
-        <h4>Event</h4>
-        <p>User: @item.actor.display_login</p>
-        <p>Type: @item.type</p>
-        <p>Repository: @item.repo.name</p>
-        <p>@Html.ActionLink("More Details", "EventDetails/" + @item.actor.display_login + "/" + @item.id)</p>
+        <h3>(displaying 30 most recent events)</h3>
+        using (Html.BeginForm("Index", "Home", FormMethod.Get))
+        {
+            <p>
+                <input type="submit" value="Refresh" />
+            </p>
+        }
+
+        foreach (var item in Model)
+        {
+            <hr />
+            <h4>Event</h4>
+            <p>User: @item.actor.display_login</p>
+            <p>Type: @item.type</p>
+            <p>Repository: @item.repo.name</p>
+            <p>@Html.ActionLink("More Details", "EventDetails/" + @item.actor.display_login + "/" + @item.id)</p>
+        }
     }
 </div>
 

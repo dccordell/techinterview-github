@@ -8,23 +8,35 @@
 
 <div>
     <hr />
-    <dl class="dl-horizontal">
+    @if (!String.IsNullOrEmpty(ViewBag.EventNotFoundError))
+    {
+        <p class="text-danger">ERROR: @ViewBag.EventNotFoundError</p>
+    }
+    else
+    {
         <h3>General</h3>
-        <dt>Type:</dt>
-        <dd>@Model.type</dd>
+        <dl class="dl-horizontal">
+            <dt>Type:</dt>
+            <dd>@Model.type</dd>
 
-        <dt>ID:</dt>
-        <dd>@Model.id</dd>
+            <dt>ID:</dt>
+            <dd>@Model.id</dd>
 
-        <dt>User:</dt>
-        <dd><a href = "http://github.com/@Model.actor.display_login">@Model.actor.display_login</a></dd>
+            <dt>User:</dt>
+            <dd>
+                <a href = "http://github.com/@Model.actor.display_login">
+                    @Model.actor.display_login
+                    <img alt="&#64;@Model.actor.display_login" src="@(Model.actor.avatar_url + "&amp;s=40")" width="20" height="20" >
+                </a>
+            </dd>
 
-        <dt>Public:</dt>
-        <dd>@Html.DisplayFor(model => model._public)</dd>
+            <dt>Public:</dt>
+            <dd>@Html.DisplayFor(model => model._public)</dd>
 
-        <dt>Created at:</dt>
-        <dd>@Model.created_at</dd>
-    </dl>
+            <dt>Created at:</dt>
+            <dd>@Model.created_at</dd>
+        </dl>
+    }
 
     <hr />
 
@@ -60,22 +72,22 @@
 
                 <dt>Commits:</dt>
                 <dd>
-                    <ul>
                     @foreach (var item in @Model.payload.commits)
                     {
-                        <li>Author name: @item.author.name</li>
-                        <li>Author email: @item.author.email</li>
-                        <li>Commit message: @item.message</li>
-                        <li>Commit URL: <a href=@item.url>@item.url</a></li>
+                        <ul>
+                            <li>Author name: @item.author.name</li>
+                            <li>Author email: @item.author.email</li>
+                            <li>Commit message: @item.message</li>
+                            <li>Commit URL: <a href=@item.url>@item.url</a></li>
+                        </ul>
+                        <hr />
                     }
-                    </ul>
-                    <hr />
                 </dd>
             </dl>
         }
         else if (Model.type == "PullRequestEvent")
         {
-            <h3>Pull Details</h3>
+            <h3>Pull Request Details</h3>
             <dl class="dl-horizontal">
                 <dt>Title:</dt>
                 <dd>@Model.payload.pull_request.title</dd>

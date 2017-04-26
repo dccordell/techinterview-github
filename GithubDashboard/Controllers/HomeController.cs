@@ -23,6 +23,17 @@ namespace GithubDashboard.Controllers
 
             if (response.IsSuccessStatusCode)
             {
+                // let's grab the hits remaining value and store it for use in the View
+                IEnumerable<string> remainingValues;
+                IEnumerable<string> limitValues;
+                if (response.Headers.TryGetValues("X-RateLimit-Remaining", out remainingValues))
+                {
+                    if (response.Headers.TryGetValues("X-RateLimit-Limit", out limitValues))
+                    {
+                        ViewBag.GithubHitsLeft = remainingValues.First() + "/" + limitValues.First();
+                    }
+                }
+
                 // create Json serialize/deserialize settings so we can skip null values from Github
                 var settings = new JsonSerializerSettings();
                 settings.NullValueHandling = NullValueHandling.Ignore;
@@ -32,11 +43,16 @@ namespace GithubDashboard.Controllers
                 var events = JsonConvert.DeserializeObject<IEnumerable<Models.Event>>(json.ToString(), settings);
 
                 return View(events);
+            } else if (response.Headers.GetValues("Status").FirstOrDefault().Contains("Forbidden"))
+            {
+                // github api hit limit reached
+                ViewBag.HitLimitError = response.Headers.GetValues("message").FirstOrDefault();
+                return View();
             }
             else
             {
                 // problem with call to github; create some exception/error here to pass to the view for display
-                ViewBag.Error = "Failed to retrieve Events from Github."; // TODO fix the error handling here!!!
+                ViewBag.Error = "Failed to retrieve Events from Github for unknown reason."; // TODO fix the error handling here!!!
                 return View();
             }
         }
@@ -47,6 +63,17 @@ namespace GithubDashboard.Controllers
             HttpResponseMessage response = client.GetAsync("users/" + owner + "/events/public").Result;
             if (response.IsSuccessStatusCode)
             {
+                // let's grab the hits remaining value and store it for use in the View
+                IEnumerable<string> remainingValues;
+                IEnumerable<string> limitValues;
+                if (response.Headers.TryGetValues("X-RateLimit-Remaining", out remainingValues))
+                {
+                    if (response.Headers.TryGetValues("X-RateLimit-Limit", out limitValues))
+                    {
+                        ViewBag.GithubHitsLeft = remainingValues.First() + "/" + limitValues.First();
+                    }
+                }
+
                 // create Json serialize/deserialize settings so we can skip null values from Github
                 var settings = new JsonSerializerSettings();
                 settings.NullValueHandling = NullValueHandling.Ignore;
@@ -66,11 +93,11 @@ namespace GithubDashboard.Controllers
                 }
 
                 // if this point is reached, then the requested user event could not be found (possibly deleted by user?)
+                ViewBag.EventNotFoundError = "Event not found! Maybe the user deleted it?";
                 return View();
             }
             else
             {
-                // problem with call to github; create some exception/error here to pass to the view for display
                 ViewBag.Error = "Failed to retrieve Events from Github."; // TODO fix the error handling here!!!
                 return View();
             }
